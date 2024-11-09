@@ -1,0 +1,16 @@
+[Container]
+Image=ghcr.io/lloesche/valheim-server:latest
+AutoUpdate=registry
+PublishPort=2456:2456/udp
+PublishPort=2457:2457/udp
+PublishPort=2458:2458/udp
+Volume=%h/valheim-plus-server/data:/opt/valheim:Z
+Volume=%h/valheim-plus-server/config:/config
+EnvironmentFile=%h/valheim-plus-server/valheim.env
+AddCapability=SYS_NICE
+
+[Service]
+Restart=always
+ExecStartPre=%/valheim-plus-server/pullconfig.sh
+[Install]
+WantedBy=default.target
